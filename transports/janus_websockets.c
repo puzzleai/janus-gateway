@@ -1665,7 +1665,8 @@ static int janus_websockets_common_callback(
 
 			/* Evaluate amount of data to send according to MESSAGE_CHUNK_SIZE */
 			int amount = ws_client->bufpending <= MESSAGE_CHUNK_SIZE ? ws_client->bufpending : MESSAGE_CHUNK_SIZE;
-			/* Set fragment flags */ aa int flags = lws_write_ws_flags(LWS_WRITE_TEXT, ws_client->bufoffset == LWS_PRE, ws_client->bufpending <= (size_t)amount);
+			int flags = lws_write_ws_flags(LWS_WRITE_TEXT, ws_client->bufoffset == LWS_PRE, ws_client->bufpending <= (size_t)amount);
+
 			/* Send the fragment with proper flags */
 			int sent = lws_write(wsi, ws_client->buffer + ws_client->bufoffset, (size_t)amount, flags);
 			JANUS_LOG(LOG_HUGE, "[%s-%p]   -- First=%d, Last=%d, Requested=%d bytes, Sent=%d bytes, Missing=%zu bytes\n", log_prefix, wsi, ws_client->bufoffset <= LWS_PRE, ws_client->bufpending <= (size_t)amount, amount, sent, ws_client->bufpending - amount);
