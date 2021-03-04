@@ -1356,16 +1356,8 @@ static int janus_websockets_common_callback(
 					ws_client->bufpending = 0;
 					ws_client->bufoffset = 0;
 				}
-				memcpy(ws_client->buffer + LWS_PRE, response, strlen(response));
-				/* Initialize pending bytes count and buffer offset */
-				ws_client->bufpending = strlen(response);
-				ws_client->bufoffset = LWS_PRE;
-				/* We can get rid of the message */
-				free(response);
-			}
-
-			if (g_atomic_int_get(&ws_client->destroyed) || g_atomic_int_get(&stopping))
-			{
+				/* Done for this round, check the next response/notification later */
+				lws_callback_on_writable(wsi);
 				janus_mutex_unlock(&ws_client->ts->mutex);
 				return 0;
 			}
