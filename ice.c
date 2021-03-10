@@ -1,18 +1,3 @@
-/*! \file    ice.c
- * \author   Lorenzo Miniero <lorenzo@meetecho.com>
- * \copyright GNU General Public License v3
- * \brief    ICE/STUN/TURN processing
- * \details  Implementation (based on libnice) of the ICE process. The
- * code handles the whole ICE process, from the gathering of candidates
- * to the final setup of a virtual channel RTP and RTCP can be transported
- * on. Incoming RTP and RTCP packets from peers are relayed to the associated
- * plugins by means of the incoming_rtp and incoming_rtcp callbacks. Packets
- * to be sent to peers are relayed by peers invoking the relay_rtp and
- * relay_rtcp core callbacks instead.
- *
- * \ingroup protocols
- * \ref protocols
- */
 
 #include <ifaddrs.h>
 #include <poll.h>
